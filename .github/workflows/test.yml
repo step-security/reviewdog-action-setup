@@ -1,0 +1,40 @@
+name: Test
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+jobs:
+  test:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: install reviewdog (default)
+        uses: ./
+      - run: reviewdog -version
+
+      - name: install reviewdog (nightly)
+        uses: ./
+        with:
+          reviewdog_version: nightly
+      - run: reviewdog -version | grep nightly
+
+      - name: install reviewdog (with reviewdog_version)
+        uses: ./
+        with:
+          reviewdog_version: v0.17.4
+      - run: test "$(reviewdog -version)" = '0.17.4'
+
+  container:
+    runs-on: ubuntu-latest
+    container:
+      image: alpine:latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: install reviewdog
+        uses: ./
+      - run: reviewdog -version
