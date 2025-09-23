@@ -41,16 +41,7 @@ fi
 mkdir -p "${TEMP}/reviewdog/bin"
 
 echo '::group::🐶 Installing reviewdog ... https://github.com/reviewdog/reviewdog'
-(
-  if command -v curl 2>&1 >/dev/null; then
-    curl -sfL "${INSTALL_SCRIPT}"
-  elif command -v wget 2>&1 >/dev/null; then
-    wget -O - "${INSTALL_SCRIPT}"
-  else
-    echo "curl or wget is required" >&2
-    exit 1
-  fi
-) | sh -s -- -b "${TEMP}/reviewdog/bin" "${VERSION}" 2>&1
+cat "${INSTALL_SCRIPT}" | sh -s -- -b "${TEMP}/reviewdog/bin" "${VERSION}" 2>&1
 echo '::endgroup::'
 
 echo "${TEMP}/reviewdog/bin" >>"${GITHUB_PATH}"
