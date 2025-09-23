@@ -32,9 +32,9 @@ if [ -z "${TEMP}" ]; then
   fi
 fi
 
-INSTALL_SCRIPT='https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh'
+INSTALL_SCRIPT="$GITHUB_ACTION_PATH/install-reviewdog.sh"
 if [ "${VERSION}" = 'nightly' ]; then
-  INSTALL_SCRIPT='https://raw.githubusercontent.com/reviewdog/nightly/master/install.sh'
+  INSTALL_SCRIPT="$GITHUB_ACTION_PATH/install-nightly.sh"
   VERSION='latest'
 fi
 
