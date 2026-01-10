@@ -24,7 +24,7 @@ steps:
 steps:
   - uses: step-security/reviewdog-action-setup@v1
     with:
-      reviewdog_version: v0.20.3
+      reviewdog_version: v0.21.0
   - run: reviewdog -version
 ```
 
